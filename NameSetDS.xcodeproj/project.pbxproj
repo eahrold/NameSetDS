@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		BE30108D17AAA74F00EEA1C6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE30108C17AAA74F00EEA1C6 /* Foundation.framework */; };
 		BE30109017AAA74F00EEA1C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE30108F17AAA74F00EEA1C6 /* main.m */; };
-		BE30109417AAA74F00EEA1C6 /* NameSetDS.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = BE30109317AAA74F00EEA1C6 /* NameSetDS.1 */; };
+		BE30109E17AAADC400EEA1C6 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE30109D17AAADC400EEA1C6 /* IOKit.framework */; };
+		BE3010A017AAE70700EEA1C6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE30109F17AAE70700EEA1C6 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -19,7 +20,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				BE30109417AAA74F00EEA1C6 /* NameSetDS.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -30,7 +30,8 @@
 		BE30108C17AAA74F00EEA1C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BE30108F17AAA74F00EEA1C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BE30109217AAA74F00EEA1C6 /* NameSetDS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NameSetDS-Prefix.pch"; sourceTree = "<group>"; };
-		BE30109317AAA74F00EEA1C6 /* NameSetDS.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = NameSetDS.1; sourceTree = "<group>"; };
+		BE30109D17AAADC400EEA1C6 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		BE30109F17AAE70700EEA1C6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +39,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE3010A017AAE70700EEA1C6 /* SystemConfiguration.framework in Frameworks */,
+				BE30109E17AAADC400EEA1C6 /* IOKit.framework in Frameworks */,
 				BE30108D17AAA74F00EEA1C6 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,6 +51,7 @@
 		BE30108017AAA74F00EEA1C6 = {
 			isa = PBXGroup;
 			children = (
+				BE30109F17AAE70700EEA1C6 /* SystemConfiguration.framework */,
 				BE30108E17AAA74F00EEA1C6 /* NameSetDS */,
 				BE30108B17AAA74F00EEA1C6 /* Frameworks */,
 				BE30108A17AAA74F00EEA1C6 /* Products */,
@@ -65,6 +69,7 @@
 		BE30108B17AAA74F00EEA1C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE30109D17AAADC400EEA1C6 /* IOKit.framework */,
 				BE30108C17AAA74F00EEA1C6 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -74,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				BE30108F17AAA74F00EEA1C6 /* main.m */,
-				BE30109317AAA74F00EEA1C6 /* NameSetDS.1 */,
 				BE30109117AAA74F00EEA1C6 /* Supporting Files */,
 			);
 			path = NameSetDS;
@@ -208,18 +212,22 @@
 		BE30109817AAA74F00EEA1C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NameSetDS/NameSetDS-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
 		BE30109917AAA74F00EEA1C6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID Application: Loyola University New Orleans School of Mass Comm (BUN87F4W87)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NameSetDS/NameSetDS-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -242,6 +250,7 @@
 				BE30109917AAA74F00EEA1C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
