@@ -79,9 +79,7 @@ NSString* queryServer(NSString* dsid,NSString* serverName,NSString* authValue)
                                format:&plist
                                errorDescription:&errorDesc];
     }else{
-        NSLog(@"%@",[error localizedDescription]);
-        return nil;
-        
+        NSLog(@"ERROR: %@",[error localizedDescription]);
     }
     
     // DeployStudio sends a nested dictionary back so we need to drill down

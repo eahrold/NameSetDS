@@ -32,6 +32,7 @@
 		BE30109217AAA74F00EEA1C6 /* NameSetDS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NameSetDS-Prefix.pch"; sourceTree = "<group>"; };
 		BE30109D17AAADC400EEA1C6 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		BE30109F17AAE70700EEA1C6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BEE9290417AD312300F4A654 /* NameSetDS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NameSetDS-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +88,7 @@
 		BE30109117AAA74F00EEA1C6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BEE9290417AD312300F4A654 /* NameSetDS-Info.plist */,
 				BE30109217AAA74F00EEA1C6 /* NameSetDS-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -215,8 +217,17 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NameSetDS/NameSetDS-Prefix.pch";
+				INFOPLIST_FILE = "NameSetDS/NameSetDS-Info.plist";
+				INSTALL_GROUP = wheel;
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"NameSetDS/NameSetDS-Info.plist",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};
@@ -224,10 +235,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Developer ID Application: Loyola University New Orleans School of Mass Comm (BUN87F4W87)";
+				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NameSetDS/NameSetDS-Prefix.pch";
+				INFOPLIST_FILE = "NameSetDS/NameSetDS-Info.plist";
+				INSTALL_GROUP = wheel;
+				INSTALL_OWNER = "$(USER)";
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"NameSetDS/NameSetDS-Info.plist",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
