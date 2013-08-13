@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import "NetworkInformation.h"
+#include <unistd.h>
 
 CFStringRef bundleID = CFSTR("com.aapps.NameSetDS");
-
+int rc = 0;
 
 
 NSString* getSerialNumber()
@@ -44,6 +46,8 @@ NSString* getSerialNumber()
 NSString* getMacAddress()
 {
     NSString* mac = nil;
+    NetworkInformation* mac_add = [[NetworkInformation alloc] init];
+    mac = [mac_add primaryMACAddress];
     return mac;
 }
 
@@ -78,8 +82,11 @@ NSString* queryServer(NSString* dsid,NSString* serverName,NSString* authValue)
                                mutabilityOption:NSPropertyListMutableContainersAndLeaves
                                format:&plist
                                errorDescription:&errorDesc];
+
     }else{
-        NSLog(@"ERROR: %@",[error localizedDescription]);
+        NSLog(@"%@",[error localizedDescription]);
+        rc = 1;
+        return @"CONNECTION_FAILURE";
     }
     
     // DeployStudio sends a nested dictionary back so we need to drill down
@@ -92,21 +99,21 @@ NSString* queryServer(NSString* dsid,NSString* serverName,NSString* authValue)
 
 NSString* getNameFromServerWithSerial(NSString* serverName,NSString* authValue)
 {
-    NSString* computeName = nil;
+    NSString* computerName = nil;
     NSString* serial = getSerialNumber();
-    computeName = queryServer(serial, serverName, authValue);
-    NSLog(@"Using Computer Name: %@",computeName);
-
-    return computeName;
+    NSLog(@"Querying server with Serial %@.",serial);
+    computerName = queryServer(serial, serverName, authValue);
+    return computerName;
 }
 
 NSString* getNameFromServerWithMac(NSString* serverName,NSString* authValue)
 {
-    NSString* computeName = nil;
-    NSString* mac = getMacAddress();
-    computeName = queryServer(mac, serverName, authValue);
 
-    return computeName;
+    NSString* computerName = nil;
+    NSString* mac = getMacAddress();
+    NSLog(@"Querying server with mac %@.",mac);
+    computerName = queryServer([mac lowercaseString], serverName, authValue);
+    return computerName;
 
 }
 
@@ -119,26 +126,36 @@ NSString* getNameFromServer()
     NSString* __weak authValue = (__bridge NSString *)(CFPreferencesCopyAppValue(CFSTR("userAuth"), bundleID));
     
     if(!(serverName || authValue)){
-        NSLog(@"Preferences are configured correctly.");
+        NSLog(@"Preferences are not configured correctly.");
         return nil;
     }
     
     // first try getting the Name using computers serial number
     computerName = getNameFromServerWithSerial(serverName, authValue);
-    
-    // if that fails try using the mac address
-    if(!computerName){
-        getNameFromServerWithMac(serverName, authValue);
+
+    // if connection failure just exit out...
+    if([computerName isEqualToString:@"CONNECTION_FAILURE"]){
+        NSLog(@"Couldn't Connect to the server... exiting");
+        return nil;
+    }else if(!computerName){
+        // if that fails try using the mac address
+        NSLog(@"We didn't find the listing using serial, trying mac");
+        computerName = getNameFromServerWithMac(serverName, authValue);
     }
-    
     return computerName;
 }
 
 
 void setComputerName(NSString* computerName){
+    NSLog(@"Using Computer Name: %@",computerName);
+
     // create the system config preference reference
     SCPreferencesRef prefs = SCPreferencesCreate(NULL,CFSTR("SystemConfiguration"), NULL);
     CFStringRef cn = (__bridge CFStringRef) computerName;
+    
+    //CFPropertyListRef myp = SCPreferencesGetValue(prefs, kSCPrefSystem);
+    
+    
     
     // check to see wether we need to actually do anything
     NSDictionary *allSC = (__bridge NSDictionary *)SCPreferencesGetValue(prefs, kSCPrefSystem);
@@ -147,6 +164,7 @@ void setComputerName(NSString* computerName){
     NSDictionary *hostnames = [network objectForKey:@"HostNames"];
     
     NSString *currentComputerName = [system objectForKey:@"ComputerName"];
+    NSString *currentHostName = [system objectForKey:@"HostName"];
     NSString *currentLocalHostName = [hostnames objectForKey:@"LocalHostName"];
     
     bool hasChanged = NO;
@@ -169,6 +187,18 @@ void setComputerName(NSString* computerName){
         }
     }
     
+    // set the Host Name
+    if(![computerName isEqualToString:currentHostName]){
+        hasChanged = YES;
+
+        if(!SCPreferencesSetValue(prefs, CFSTR("HostName"),cn ))
+        {
+            NSLog(@"Couldn't set the Host Name");
+        }
+        
+    }
+    
+    
     // and finally sync everything up
     if(hasChanged){        
         // we must commit before we apply!!
@@ -182,10 +212,13 @@ void setComputerName(NSString* computerName){
 
 int main(int argc, const char * argv[])
 {
-    @autoreleasepool {
+    @autoreleasepool {        
         // we'll see if we have permission before moving forward
         if (!getuid() == 0){
-            return 0;
+            rc = 1;
+            NSLog(@"This must run as root, exiting %d",rc);
+
+            return rc;
         }
 
         NSString* cn = getNameFromServer();
@@ -193,5 +226,5 @@ int main(int argc, const char * argv[])
             setComputerName(cn);
         }
     }
-    return 0;
+    return rc;
 }

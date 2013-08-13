@@ -11,6 +11,7 @@
 		BE30109017AAA74F00EEA1C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE30108F17AAA74F00EEA1C6 /* main.m */; };
 		BE30109E17AAADC400EEA1C6 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE30109D17AAADC400EEA1C6 /* IOKit.framework */; };
 		BE3010A017AAE70700EEA1C6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE30109F17AAE70700EEA1C6 /* SystemConfiguration.framework */; };
+		BE99AD0617ADF6C500115B93 /* NetworkInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = BE99AD0517ADF6C500115B93 /* NetworkInformation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +33,8 @@
 		BE30109217AAA74F00EEA1C6 /* NameSetDS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NameSetDS-Prefix.pch"; sourceTree = "<group>"; };
 		BE30109D17AAADC400EEA1C6 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		BE30109F17AAE70700EEA1C6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BE99AD0417ADF6C500115B93 /* NetworkInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkInformation.h; sourceTree = "<group>"; };
+		BE99AD0517ADF6C500115B93 /* NetworkInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkInformation.m; sourceTree = "<group>"; };
 		BEE9290417AD312300F4A654 /* NameSetDS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NameSetDS-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,7 +55,6 @@
 		BE30108017AAA74F00EEA1C6 = {
 			isa = PBXGroup;
 			children = (
-				BE30109F17AAE70700EEA1C6 /* SystemConfiguration.framework */,
 				BE30108E17AAA74F00EEA1C6 /* NameSetDS */,
 				BE30108B17AAA74F00EEA1C6 /* Frameworks */,
 				BE30108A17AAA74F00EEA1C6 /* Products */,
@@ -70,6 +72,7 @@
 		BE30108B17AAA74F00EEA1C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE30109F17AAE70700EEA1C6 /* SystemConfiguration.framework */,
 				BE30109D17AAADC400EEA1C6 /* IOKit.framework */,
 				BE30108C17AAA74F00EEA1C6 /* Foundation.framework */,
 			);
@@ -88,6 +91,8 @@
 		BE30109117AAA74F00EEA1C6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BE99AD0417ADF6C500115B93 /* NetworkInformation.h */,
+				BE99AD0517ADF6C500115B93 /* NetworkInformation.m */,
 				BEE9290417AD312300F4A654 /* NameSetDS-Info.plist */,
 				BE30109217AAA74F00EEA1C6 /* NameSetDS-Prefix.pch */,
 			);
@@ -146,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE30109017AAA74F00EEA1C6 /* main.m in Sources */,
+				BE99AD0617ADF6C500115B93 /* NetworkInformation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
